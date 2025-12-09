@@ -1,4 +1,14 @@
 services:
+
+  modulo3:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - controller-3
+      - mysql
+      - graylog
+
   controller-1:
     image: apache/kafka:latest
     ports:
@@ -45,7 +55,6 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_CONTROLLER_QUORUM_VOTERS: 1@controller-1:9093,2@controller-2:9093,3@controller-3:9093
 
-
   mysql:
     image: mysql
     ports:
@@ -56,3 +65,34 @@ services:
       MYSQL_PASSWORD: admin
       MYSQL_DATABASE: mydb
      
+  graylog:
+    image: graylog/graylog:5.0
+    depends_on:
+    - mongodb
+    - elasticsearch
+    environment:
+      GRAYLOG_PASSWORD_SECRET: mypasswordpassword
+      GRAYLOG_ROOT_PASSWORD_SHA2: c8a97abf27915e957a990ecb381cd2400f97af61176b4a73e828330dfeaeef35
+      GRAYLOG_MONGODB_URI: mongodb://admin:admin@mongodb:27017/graylog?authSource=admin
+    ports:
+      - 9000:9000
+      - 1514:1514
+      - 1514:1514/udp
+      - 12201:12201
+      - 12201:12201/udp
+      - 5555:5555
+
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    environment:
+        - http.host=0.0.0.0
+        - transport.host=localhost
+        - network.host=0.0.0.0
+        - node.max_local_storage_nodes=4
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"

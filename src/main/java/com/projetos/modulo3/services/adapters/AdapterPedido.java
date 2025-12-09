@@ -4,21 +4,29 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.projetos.modulo3.controllers.DTO.Pedido;
+import com.projetos.modulo3.entities.Pedido;
 import com.projetos.modulo3.repositories.entities.PedidoEntity;
  
 @Service
-public class PedidoAdapter {
+public class AdapterPedido {
     public PedidoEntity adapt(Pedido pedido){
-        return new PedidoEntity(pedido.id(), pedido.produto(), pedido.qtd(), pedido.cep(), pedido.data(), pedido.status());
+        return new PedidoEntity(pedido.getId(), pedido.getProduto(), pedido.getQtd(), pedido.getCep(), pedido.getData(), pedido.getStatus());
     }
 
     public List<PedidoEntity> adaptPedidos(List<Pedido> pedidos){
-        return pedidos.stream().map(pedido -> new PedidoEntity(pedido.id(), pedido.produto(), pedido.qtd(), pedido.cep(), pedido.data(),  pedido.status())).toList();
+        return pedidos.stream().map(pedido -> 
+            new PedidoEntity(
+                pedido.getId(), 
+                pedido.getProduto(), 
+                pedido.getQtd(), 
+                pedido.getCep(), 
+                pedido.getData(),  
+                pedido.getStatus()
+            )).toList();
     }
 
     public Pedido adapt(PedidoEntity entity){
-        return new Pedido(entity.getId(), entity.getProduto(), entity.getQtd(), entity.getData(), entity.getCep(), entity.getStatus());
+        return new Pedido(entity.getId(), entity.getProduto(), entity.getQtd(),  entity.getCep(), entity.getData(), entity.getStatus());
     }
 
     public List<Pedido> adaptEntities(List<PedidoEntity> entities){
@@ -26,8 +34,8 @@ public class PedidoAdapter {
             new Pedido(entity.getId(), 
                 entity.getProduto(), 
                 entity.getQtd(), 
-                entity.getData(), 
                 entity.getCep(), 
+                entity.getData(), 
                 entity.getStatus()
             )).toList();
     }

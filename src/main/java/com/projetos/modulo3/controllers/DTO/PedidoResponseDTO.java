@@ -1,8 +1,8 @@
 package com.projetos.modulo3.controllers.DTO;
 
-import java.sql.Date;
+import java.util.Date;
 
-public record Pedido(
+public record PedidoResponseDTO(
     int id,
     String produto,
     int qtd,

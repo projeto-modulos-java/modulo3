@@ -1,16 +1,8 @@
-package com.projetos.modulo3.repositories.entities;
+package com.projetos.modulo3.entities;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity
-public class PedidoEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class Pedido {
     private Integer id;
     private String produto;
     private int qtd;
@@ -18,10 +10,7 @@ public class PedidoEntity {
     private Date data;
     private String status;
 
-    public PedidoEntity() {
-    }
-
-    public PedidoEntity(Integer id, String produto, int qtd, String cep, Date data, String status) {
+    public Pedido(int id, String produto, int qtd, String cep, Date data, String status) {
         this.id = id;
         this.produto = produto;
         this.qtd = qtd;
@@ -30,10 +19,17 @@ public class PedidoEntity {
         this.status = status;
     }
 
+    public Pedido(String produto, int qtd, String cep, Date data) {
+        this.produto = produto;
+        this.qtd = qtd;
+        this.cep = cep;
+        this.data = data;
+    }
+
     public Integer getId() {
         return id;
     }
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getProduto() {
@@ -66,4 +62,5 @@ public class PedidoEntity {
     public void setStatus(String status) {
         this.status = status;
     }
+    
 }
