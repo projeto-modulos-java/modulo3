@@ -7,9 +7,9 @@
   </appender>
 
   <appender name="SOCKET" class="ch.qos.logback.classic.net.SocketAppender">
-    <remoteHost>localhost</remoteHost>
+    <remoteHost>graylog</remoteHost>
     <port>5555</port>
-    <reconnectionDelay>1å0000</reconnectionDelay>
+    <reconnectionDelay>10000</reconnectionDelay>
   </appender>
 
    <root level="debug">
