@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projetos.modulo3.controllers.DTO.PedidoRequestDTO;
-import com.projetos.modulo3.controllers.DTO.PedidoResponseDTO;
 import com.projetos.modulo3.controllers.adapters.AdapterDTO;
+import com.projetos.modulo3.controllers.entities.PedidoRequestDTO;
+import com.projetos.modulo3.controllers.entities.PedidoResponseDTO;
 import com.projetos.modulo3.services.PedidoService;
 
 @RestController
 @RequestMapping(path = "/pedido")
 public class PedidoController {
 
-    final private PedidoService service;
-    final private AdapterDTO adapter;
-    final private StreamBridge bridge;
-    final private Logger logger = LoggerFactory.getLogger(PedidoController.class);
+    private final PedidoService service;
+    private final AdapterDTO adapter;
+    private final StreamBridge bridge;
+    private final Logger logger = LoggerFactory.getLogger(PedidoController.class);
 
     public PedidoController(AdapterDTO adapter, PedidoService service, StreamBridge bridge ) {
         this.adapter = adapter;
@@ -42,7 +42,7 @@ public class PedidoController {
 
     @GetMapping("/{id}")
     public PedidoResponseDTO find(@PathVariable("id") int id){
-        logger.info("Encontrando pedido pelo id: " + id);
+        logger.info("Encontrando pedido pelo id: {}", id);
         return this.adapter.adapt(this.service.find(id));
     }
 
@@ -55,7 +55,7 @@ public class PedidoController {
 
     @DeleteMapping("/cancelamento/{id}")
     public ResponseEntity<Object> delete(@PathVariable("id") int id){
-        logger.info("Cancelando pedido com id: " + id);
+        logger.info("Cancelando pedido com id: {}", id);
         bridge.send("cancelar-topic", id);
         return ResponseEntity.ok().build();
     }

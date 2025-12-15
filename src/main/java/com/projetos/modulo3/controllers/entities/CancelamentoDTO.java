@@ -1,4 +1,4 @@
-package com.projetos.modulo3.controllers.DTO;
+package com.projetos.modulo3.controllers.entities;
 
 public record CancelamentoDTO(
     int id,

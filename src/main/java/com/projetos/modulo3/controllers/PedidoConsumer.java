@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import com.projetos.modulo3.controllers.DTO.PedidoRequestDTO;
 import com.projetos.modulo3.controllers.adapters.AdapterDTO;
+import com.projetos.modulo3.controllers.entities.PedidoRequestDTO;
 import com.projetos.modulo3.services.PedidoService;
 
 @Component
@@ -35,7 +35,7 @@ public class PedidoConsumer {
     public Consumer<String> cancelamento(){
         return value -> {
             this.service.cancelaPedido(Integer.parseInt(value));
-            logger.info("Cancelando pedido:  " + value);
+            logger.info("Cancelando pedido:  {}", value);
         };
     }
 }

@@ -1,12 +1,4 @@
 services:
-  modulo3:
-    build: .
-    ports:
-      - 8080:8080
-    depends_on:
-      - controller-3fffff
-      - mysql
-      - graylog
 
   controller-1:
     image: apache/kafka:latest

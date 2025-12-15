@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.projetos.modulo3.controllers.DTO.PedidoRequestDTO;
-import com.projetos.modulo3.controllers.DTO.PedidoResponseDTO;
+import com.projetos.modulo3.controllers.entities.PedidoRequestDTO;
+import com.projetos.modulo3.controllers.entities.PedidoResponseDTO;
 import com.projetos.modulo3.entities.Pedido;
 
 @Service
